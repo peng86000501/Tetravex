@@ -1,6 +1,5 @@
 # Tetravex
 
-#useage
 Use this command to run:
 python .\GUI_Tetavex.py
 
