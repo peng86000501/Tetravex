@@ -235,7 +235,7 @@ def judgewin():
        boxes[3].left == boxes[2].right and boxes[3].up == boxes[1].down and\
        boxes[0].right != -1 and boxes[2].up != -1 and boxes[3].left != -1 and boxes[1].down != -1:
         print("win")
-        txwin = cv.create_text(110, 90, text= "  You Win!\nClick to Exit",fill="black",font=('Helvetica 15 bold'))
+        txwin = cv.create_text(125, 90, text= "     You Win!\nClick to Start again",fill="black",font=('Helvetica 15 bold'))
         global win
         win = True
         for i in range(4):
