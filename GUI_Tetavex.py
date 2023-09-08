@@ -9,6 +9,7 @@ import random
 # 创建一个矩形，指定画布的颜色为白色
 from tkinter import *
 
+#original ifthrow function
 def ifthrow():
     if boxindex == 0:
         if (boxes[2].up == -1 or boxes[2].up == squares[mess[moveindex]].down) and \
@@ -69,6 +70,7 @@ def ifthrow():
         boxes[boxindex].down = squares[mess[moveindex]].down
     return throwback
 
+#from chatgpt optimized ifthrow
 def ifthrow2():
     conditions = {
         0: (boxes[2].up == -1 or boxes[2].up == squares[mess[moveindex]].down,
@@ -99,6 +101,7 @@ def ifthrow2():
     
     return throwback
 
+#from bing optimized ifthrow
 def ifthrow3():
     throwback = False
 
