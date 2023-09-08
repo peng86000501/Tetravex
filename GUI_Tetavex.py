@@ -99,6 +99,45 @@ def ifthrow2():
     
     return throwback
 
+def ifthrow3():
+    throwback = False
+
+    i = boxindex
+
+    if i == 0: # 如果是第一个方块
+        # 判断是否满足条件
+        condition = (boxes[2].up == -1 or boxes[2].up == squares[mess[moveindex]].down) and \
+            (boxes[1].left == -1 or boxes[1].left == squares[mess[moveindex]].right)
+        print("if throw i  condition", i, condition)
+    elif i == 1: # 如果是第二个方块
+        # 判断是否满足条件
+        condition = (boxes[0].right == -1 or boxes[0].right == squares[mess[moveindex]].left) and \
+            (boxes[3].up == -1 or boxes[3].up == squares[mess[moveindex]].down)
+        print("if throw i  condition", i, condition)
+    elif i == 2: # 如果是第三个方块
+        # 判断是否满足条件
+        condition = (boxes[0].down == -1 or boxes[0].down == squares[mess[moveindex]].up) and \
+            (boxes[3].left == -1 or boxes[3].left == squares[mess[moveindex]].right)
+        print("if throw i  condition", i, condition)
+    elif i == 3: # 如果是第四个方块
+        # 判断是否满足条件
+        condition = (boxes[1].down == -1 or boxes[1].down == squares[mess[moveindex]].up) and \
+            (boxes[2].right == -1 or boxes[2].right == squares[mess[moveindex]].left)
+        print("if throw i  condition", i, condition)
+    print("ifthrow3 i",i)
+    if condition: # 如果条件成立
+        throwback = False # 不需要扔回去
+    else: # 如果条件不成立
+        throwback = True # 需要扔回去
+
+    if throwback == False:
+        boxes[boxindex].up = squares[mess[moveindex]].up
+        boxes[boxindex].left = squares[mess[moveindex]].left
+        boxes[boxindex].right = squares[mess[moveindex]].right
+        boxes[boxindex].down = squares[mess[moveindex]].down
+    print("ifthrow3 throwback", throwback)
+    return throwback # 返回结果
+
 def mouse_key(event):
     print("clicked at", event.x, event.y)
     '''
@@ -144,8 +183,9 @@ def mouse_key(event):
 
     if boxindex != -1 and moveindex != -1:
         place = True
-        ifthrowback = ifthrow()
+        #ifthrowback = ifthrow()
         #ifthrowback = ifthrow2()
+        ifthrowback = ifthrow3()
             
         if ifthrowback:
             squares[mess[moveindex]].move(origin_x[moveindex] + 10 - squares[mess[moveindex]].x, origin_y[moveindex] + 10 - squares[mess[moveindex]].y)
@@ -411,7 +451,7 @@ box_y = [220, 220, 325, 325]
 
 root = Tk()
 root.title('Tetravex 四邻')
-root.geometry("240x450")
+root.geometry("250x450")
 # 创建一个Canvas，设置其背景色为白色
 cv = Canvas(root,bg = 'white', width = 240, height = 450)
 #cv.geometry("600x600")
