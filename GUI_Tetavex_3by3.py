@@ -518,9 +518,9 @@ box_y = [350, 350, 350, 460, 460, 460, 570, 570, 570]
 
 root = Tk()
 root.title('Tetravex 四邻')
-root.geometry("360x720")
+root.geometry("360x700")
 # 创建一个Canvas，设置其背景色为白色
-cv = Canvas(root,bg = 'white', width = 360, height = 720)
+cv = Canvas(root,bg = 'white', width = 360, height = 700)
 #cv.geometry("600x600")
 # 创建一个矩形，坐标为(10,10,110,110)
 
