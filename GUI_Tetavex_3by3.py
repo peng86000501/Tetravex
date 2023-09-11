@@ -74,10 +74,13 @@ def ifthrow():
             throwback = True
     
     elif boxindex == 8:
+        print("boxindex == 8 condition",(boxes[5].down == -1 or boxes[5].down == squares[mess[moveindex]].up), (boxes[7].left == -1 or boxes[7].left == squares[mess[moveindex]].right))
         if (boxes[5].down == -1 or boxes[5].down == squares[mess[moveindex]].up) and \
-            (boxes[7].left == -1 or boxes[7].left == squares[mess[moveindex]].right):
+            (boxes[7].right == -1 or boxes[7].right == squares[mess[moveindex]].left):
+            print("throw = False")
             throwback = False
         else:
+            print("throw = True")
             throwback = True
 
     if throwback == False:
@@ -206,7 +209,6 @@ def mouse_key(event):
         
         if ifthrowback:
             squares[mess[moveindex]].move(origin_x[moveindex] + 10 - squares[mess[moveindex]].x, origin_y[moveindex] + 10 - squares[mess[moveindex]].y)
-            place_seq[boxindex] = -1
         else:
             squares[mess[moveindex]].move(box_x[boxindex] + 15 - squares[mess[moveindex]].x, box_y[boxindex] + 13 - squares[mess[moveindex]].y)
             place_seq[boxindex] = moveindex
@@ -214,6 +216,7 @@ def mouse_key(event):
         print("boxindex move", boxindex, move)
         if move == True:
             print("move == True boxindex move", boxindex, move)
+            place_seq[boxindex] = -1
             boxes[boxindex].up = -1
             boxes[boxindex].left = -1
             boxes[boxindex].right = -1
@@ -223,10 +226,12 @@ def mouse_key(event):
     print("judgewin")
     if win == True:
         #exit()
+        print("judgewin delete txwin")
         cv.delete(txwin)
         win = False
-        for i in range(4):
+        for i in range(9):
             squares[i].delete()
+            place_seq[i] = -1
         
         start()
     judgewin()
@@ -290,18 +295,26 @@ def printsquares():
 
 def judgewin():
     global txwin
+    print("judgewin conditions", boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up,\
+       boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up,\
+       boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up,\
+       boxes[5].down == boxes[8].up,\
+       boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left,\
+       boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left,\
+       "full = ",
+       check_place_seq_full())
     if boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up and\
-       boxes[2].left == boxes[1].right and boxes[2].down == boxes[4].up and boxes[5].up == boxes[2].down and\
+       boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up and\
        boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up and\
        boxes[5].down == boxes[8].up and\
        boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left and\
        boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left and\
        check_place_seq_full():
         print("win")
-        txwin = cv.create_text(125, 90, text= "     You Win!\nClick to Start again",fill="black",font=('Helvetica 15 bold'))
+        txwin = cv.create_text(200, 190, text= "     You Win!\nClick to Start again",fill="black",font=('Helvetica 15 bold'))
         global win
         win = True
-        for i in range(4):
+        for i in range(9):
             boxes[i].up = -1
             boxes[i].left = -1
             boxes[i].right = -1
@@ -373,21 +386,24 @@ def start():
 
     print("mess", mess)
 
-    
+    '''
     for i in range(0,9):
         mess[i] = i
         squares[i].draw()
         squares[i].move(origin_x[i], origin_y[i])
-
     '''
+    #'''
     for j in range(0,9):
         i=random.randint(0,8-j)
-        mess[j] = sequence[j]
-        #del sequence[i]
-        print("j sequence",j, sequence)
+        print("j ", j, "sequence[i]",sequence[i], "i", i , "mess[i]", mess[i])
+        mess[j] = sequence[i]
+        del sequence[i]
+        print("j sequence i mess[i]",j, sequence,i,mess[i])
         print("mess",mess)
-    '''
-
+    #'''
+    for i in range(0,9):
+        squares[mess[i]].draw()
+        squares[mess[i]].move(origin_x[i], origin_y[i])
 '''
     s1.draw()
     #s1.move(115,0)
@@ -404,10 +420,13 @@ def start():
 
 def check_place_seq_full():
     full = True
+    print("full at first", full, "place_seq",place_seq)
     for i in range(0, 9):
         if place_seq[i] == -1:
             full = False
+            print("i full False", i)
             break
+    print("full at last", full)
     return full
 
 
@@ -486,10 +505,10 @@ throwback = False
 win = False
 moveindex = -1
 boxindex = -1
-#mess = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-mess = [0,1,2,3,4,5,6,7,8]
+mess = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
+#mess = [0,1,2,3,4,5,6,7,8]
 sequence = [0,1,2,3,4,5,6,7,8]
-place_seq = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+place_seq = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 
 colors = ["springgreen", "yellow", "blue", "red", "green", "gray", "brown", "pink", "orange", "purple"]
 origin_x = [0, 115, 230, 0, 115, 230, 0, 115, 230]
@@ -505,11 +524,11 @@ cv = Canvas(root,bg = 'white', width = 360, height = 720)
 #cv.geometry("600x600")
 # 创建一个矩形，坐标为(10,10,110,110)
 
-r0 = cv.create_rectangle(10,350,350,710)
-cv.create_line(120, 350, 120, 710)
-cv.create_line(235, 350, 235, 710)
-cv.create_line(10, 465, 350, 465)
-cv.create_line(10, 585, 350, 585)
+r0 = cv.create_rectangle(10,350,350,690)
+cv.create_line(120, 350, 120, 690)
+cv.create_line(230, 350, 230, 690)
+cv.create_line(10, 470, 350, 470)
+cv.create_line(10, 575, 350, 575)
 
 
 #r1 = cv.create_rectangle(10,10,110,110)
