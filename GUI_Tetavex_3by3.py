@@ -10,54 +10,72 @@ import random
 from tkinter import *
 
 def ifthrow():
+    global throwback
     if boxindex == 0:
-        if (boxes[2].up == -1 or boxes[2].up == squares[mess[moveindex]].down) and \
+        if (boxes[3].up == -1 or boxes[3].up == squares[mess[moveindex]].down) and \
             (boxes[1].left == -1 or boxes[1].left == squares[mess[moveindex]].right):
-            '''
-            boxes[0].up = squares[mess[moveindex]].up
-            boxes[0].left = squares[mess[moveindex]].left
-            boxes[0].right = squares[mess[moveindex]].right
-            boxes[0].down = squares[mess[moveindex]].down
-            '''
             throwback = False
         else:
             throwback = True
                 
     elif boxindex == 1:
         if (boxes[0].right == -1 or boxes[0].right == squares[mess[moveindex]].left) and \
-            (boxes[3].up == -1 or boxes[3].up == squares[mess[moveindex]].down):
-            '''
-            boxes[1].up = squares[mess[moveindex]].up
-            boxes[1].left = squares[mess[moveindex]].left
-            boxes[1].right = squares[mess[moveindex]].right
-            boxes[1].down = squares[mess[moveindex]].down
-            '''
+            (boxes[4].up == -1 or boxes[4].up == squares[mess[moveindex]].down) and \
+            (boxes[2].left == -1 or boxes[2].left == squares[mess[moveindex]].right) :
             throwback = False
         else:
             throwback = True
 
     elif boxindex == 2:
-        if (boxes[0].down == -1 or boxes[0].down == squares[mess[moveindex]].up) and \
-            (boxes[3].left == -1 or boxes[3].left == squares[mess[moveindex]].right):
-            '''
-            boxes[2].up = squares[mess[moveindex]].up
-            boxes[2].left = squares[mess[moveindex]].left
-            boxes[2].right = squares[mess[moveindex]].right
-            boxes[2].down = squares[mess[moveindex]].down
-            '''
+        if (boxes[1].right == -1 or boxes[1].right == squares[mess[moveindex]].left) and \
+            (boxes[5].up == -1 or boxes[5].up == squares[mess[moveindex]].down):
             throwback = False
         else:
             throwback = True
 
     elif boxindex == 3:
+        if (boxes[0].down == -1 or boxes[0].down == squares[mess[moveindex]].up) and \
+            (boxes[4].left == -1 or boxes[4].left == squares[mess[moveindex]].right) and \
+            (boxes[6].up == -1 or boxes[6].up == squares[mess[moveindex]].down):
+            throwback = False
+        else:
+            throwback = True
+    
+    elif boxindex == 4:
         if (boxes[1].down == -1 or boxes[1].down == squares[mess[moveindex]].up) and \
-            (boxes[2].right == -1 or boxes[2].right == squares[mess[moveindex]].left):
-            '''
-            boxes[3].up = squares[mess[moveindex]].up
-            boxes[3].left = squares[mess[moveindex]].left
-            boxes[3].right = squares[mess[moveindex]].right
-            boxes[3].down = squares[mess[moveindex]].down
-            '''
+            (boxes[3].right == -1 or boxes[3].right == squares[mess[moveindex]].left) and \
+            (boxes[5].left == -1 or boxes[5].left == squares[mess[moveindex]].right) and \
+            (boxes[7].up == -1 or boxes[7].up == squares[mess[moveindex]].down):
+            throwback = False
+        else:
+            throwback = True
+    
+    elif boxindex == 5:
+        if (boxes[2].down == -1 or boxes[2].down == squares[mess[moveindex]].up) and \
+            (boxes[4].right == -1 or boxes[4].right == squares[mess[moveindex]].left) and \
+            (boxes[8].up == -1 or boxes[8].up == squares[mess[moveindex]].down):
+            throwback = False
+        else:
+            throwback = True
+
+    elif boxindex == 6:
+        if (boxes[3].down == -1 or boxes[3].down == squares[mess[moveindex]].up) and \
+            (boxes[7].left == -1 or boxes[7].left == squares[mess[moveindex]].right):
+            throwback = False
+        else:
+            throwback = True
+    
+    elif boxindex == 7:
+        if (boxes[4].down == -1 or boxes[4].down == squares[mess[moveindex]].up) and \
+            (boxes[6].right == -1 or boxes[6].right == squares[mess[moveindex]].left) and \
+            (boxes[8].left == -1 or boxes[8].left == squares[mess[moveindex]].right):
+            throwback = False
+        else:
+            throwback = True
+    
+    elif boxindex == 8:
+        if (boxes[5].down == -1 or boxes[5].down == squares[mess[moveindex]].up) and \
+            (boxes[7].left == -1 or boxes[7].left == squares[mess[moveindex]].right):
             throwback = False
         else:
             throwback = True
@@ -148,19 +166,24 @@ def mouse_key(event):
     global win
     global txwin
     global move
+    global mess
+    global place_seq
     moveindex = -1
     boxindex = -1
     throwback = False
     place = False
+    squares_num = 9
+    print("moveindex  mess[moveindex] mess[i] -----yrp",moveindex, mess[moveindex], mess[0])
+    print("mess", mess)
 
-    for i in range(0, 4):
+    for i in range(0, 9):
         print("i x y",i,squares[mess[i]].x,squares[mess[i]].y)
         if(event.x > squares[mess[i]].x and event.x - squares[mess[i]].x < 100 and event.y > squares[mess[i]].y and event.y - squares[mess[i]].y < 100):
             moveindex = i
             print("moveindex", moveindex)
             break
 
-    for i in range(0,4):
+    for i in range(0,squares_num):
         if(event.x > box_x[i] and event.x - box_x[i] < 100 and event.y > box_y[i] and event.y - box_y[i] < 100):
             boxindex = i
             print("boxindex", boxindex)
@@ -183,8 +206,10 @@ def mouse_key(event):
         
         if ifthrowback:
             squares[mess[moveindex]].move(origin_x[moveindex] + 10 - squares[mess[moveindex]].x, origin_y[moveindex] + 10 - squares[mess[moveindex]].y)
+            place_seq[boxindex] = -1
         else:
             squares[mess[moveindex]].move(box_x[boxindex] + 15 - squares[mess[moveindex]].x, box_y[boxindex] + 13 - squares[mess[moveindex]].y)
+            place_seq[boxindex] = moveindex
 
         print("boxindex move", boxindex, move)
         if move == True:
@@ -253,21 +278,25 @@ def printsquare(squ):
     return
 
 def printsquares():
-    for i in range(0,2):
+    for i in range(0,3):
         print("------------")
         #print("get_index(i, 0)",get_index(i, 0))
         #print("get_index(i, 1)",get_index(i, 1))
-        print(" ",boxes[i*2+0].up, " | ", boxes[i*2+1].up)
-        print(boxes[i*2+0].left, "", boxes[i*2+0].right, "|", boxes[i*2+1].left, "",boxes[i*2+1].right)
-        print(" ",boxes[i*2+0].down," | ", boxes[i*2+1].down)
+        print(" ",boxes[i*3+0].up, " | ", boxes[i*3+1].up, " | ", boxes[i*3+2].up)
+        print(boxes[i*3+0].left, "", boxes[i*3+0].right, "|", boxes[i*3+1].left, "",boxes[i*3+1].right, "|", boxes[i*3+2].left, "",boxes[i*3+2].right)
+        print(" ",boxes[i*3+0].down," | ", boxes[i*3+1].down," | ", boxes[i*3+2].down)
     print("------------")
     return
 
 def judgewin():
     global txwin
-    if boxes[0].right == boxes[1].left and boxes[0].down == boxes[2].up and\
-       boxes[3].left == boxes[2].right and boxes[3].up == boxes[1].down and\
-       boxes[0].right != -1 and boxes[2].up != -1 and boxes[3].left != -1 and boxes[1].down != -1:
+    if boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up and\
+       boxes[2].left == boxes[1].right and boxes[2].down == boxes[4].up and boxes[5].up == boxes[2].down and\
+       boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up and\
+       boxes[5].down == boxes[8].up and\
+       boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left and\
+       boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left and\
+       check_place_seq_full():
         print("win")
         txwin = cv.create_text(125, 90, text= "     You Win!\nClick to Start again",fill="black",font=('Helvetica 15 bold'))
         global win
@@ -292,8 +321,9 @@ def start():
     win = False
     moveindex = -1
     boxindex = -1
-    mess=[-1,-1,-1,-1]
-    sequence = [0,1,2,3]
+    global mess, sequence
+    mess=[-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    sequence = [0,1,2,3,4,5,6,7,8]
 
     s1.up = random.randint(0,9)
     s1.left = random.randint(0,9)
@@ -345,6 +375,7 @@ def start():
 
     
     for i in range(0,9):
+        mess[i] = i
         squares[i].draw()
         squares[i].move(origin_x[i], origin_y[i])
 
@@ -371,6 +402,13 @@ def start():
     #s4.move(115,110)
 '''
 
+def check_place_seq_full():
+    full = True
+    for i in range(0, 9):
+        if place_seq[i] == -1:
+            full = False
+            break
+    return full
 
 
 
@@ -451,12 +489,13 @@ boxindex = -1
 #mess = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 mess = [0,1,2,3,4,5,6,7,8]
 sequence = [0,1,2,3,4,5,6,7,8]
+place_seq = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 
 colors = ["springgreen", "yellow", "blue", "red", "green", "gray", "brown", "pink", "orange", "purple"]
 origin_x = [0, 115, 230, 0, 115, 230, 0, 115, 230]
 origin_y = [0, 0, 0, 110, 110, 110, 220, 220, 220]
-box_x = [0, 110, 0, 110]
-box_y = [220, 220, 325, 325]
+box_x = [0, 110, 220, 0, 110, 220, 0, 110, 220]
+box_y = [350, 350, 350, 460, 460, 460, 570, 570, 570]
 
 root = Tk()
 root.title('Tetravex 四邻')
