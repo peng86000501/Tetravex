@@ -295,21 +295,23 @@ def printsquares():
 
 def judgewin():
     global txwin
-    print("judgewin conditions", boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up,\
-       boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up,\
-       boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up,\
-       boxes[5].down == boxes[8].up,\
-       boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left,\
-       boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left,\
-       "full = ",
-       check_place_seq_full())
-    if boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up and\
-       boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up and\
-       boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up and\
-       boxes[5].down == boxes[8].up and\
-       boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left and\
-       boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left and\
-       check_place_seq_full():
+    #print("judgewin conditions", boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up,\
+    #   boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up,\
+    #   boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up,\
+    #   boxes[5].down == boxes[8].up,\
+    #   boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left,\
+    #   boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left,\
+    #   "full = ",
+    #   check_place_seq_full())
+
+    #if boxes[0].right == boxes[1].left and boxes[0].down == boxes[3].up and\
+    #   boxes[2].left == boxes[1].right and boxes[2].down == boxes[5].up and\
+    #   boxes[4].left == boxes[3].right and boxes[4].right == boxes[5].left and boxes[4].down == boxes[7].up and\
+    #   boxes[5].down == boxes[8].up and\
+    #   boxes[6].up == boxes[3].down and boxes[6].right == boxes[7].left and\
+    #   boxes[7].up == boxes[4].down and boxes[7].right == boxes[8].left and\
+    #   check_place_seq_full():
+    if check_place_seq_full():
         print("win")
         txwin = cv.create_text(200, 190, text= "     You Win!\nClick to Start again",fill="black",font=('Helvetica 15 bold'))
         global win
