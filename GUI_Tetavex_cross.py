@@ -406,6 +406,11 @@ def start():
     for i in range(0,9):
         squares[mess[i]].draw()
         squares[mess[i]].move(origin_x[i], origin_y[i])
+
+    squares[0].delete()
+    squares[2].delete()
+    squares[6].delete()
+    squares[8].delete()
 '''
     s1.draw()
     #s1.move(115,0)
@@ -423,11 +428,14 @@ def start():
 def check_place_seq_full():
     full = True
     print("full at first", full, "place_seq",place_seq)
-    for i in range(0, 9):
-        if place_seq[i] == -1:
-            full = False
-            print("i full False", i)
-            break
+    #for i in range(0, 9):
+    #    if place_seq[i] == -1:
+    if place_seq[1] != -1 and place_seq[3] != -1 and place_seq[4] != -1 and place_seq[5] != -1 and place_seq[7] != -1:
+        full = True
+        print("full True")
+    else:
+        full = False
+        print("full False")
     print("full at last", full)
     return full
 
