@@ -284,13 +284,13 @@ def printsquare(squ):
 
 def printsquares():
     for i in range(0,3):
-        print("------------")
+        print("--------------------------")
         #print("get_index(i, 0)",get_index(i, 0))
         #print("get_index(i, 1)",get_index(i, 1))
-        print(" ",boxes[i*3+0].up, " | ", boxes[i*3+1].up, " | ", boxes[i*3+2].up)
-        print(boxes[i*3+0].left, "", boxes[i*3+0].right, "|", boxes[i*3+1].left, "",boxes[i*3+1].right, "|", boxes[i*3+2].left, "",boxes[i*3+2].right)
-        print(" ",boxes[i*3+0].down," | ", boxes[i*3+1].down," | ", boxes[i*3+2].down)
-    print("------------")
+        print(" ",boxes[i*3+0].up, "  |  ", boxes[i*3+1].up, "  |  ", boxes[i*3+2].up, "  |")
+        print(boxes[i*3+0].left, " ", boxes[i*3+0].right, "|", boxes[i*3+1].left, " ",boxes[i*3+1].right, "|", boxes[i*3+2].left, " ",boxes[i*3+2].right, "|")
+        print(" ",boxes[i*3+0].down,"  |  ", boxes[i*3+1].down,"  |  ", boxes[i*3+2].down, "  |")
+    print("--------------------------")
     return
 
 def judgewin():
@@ -516,21 +516,21 @@ colors = ["springgreen", "yellow", "blue", "red", "green", "gray", "brown", "pin
 origin_x = [0, 115, 230, 0, 115, 230, 0, 115, 230]
 origin_y = [0, 0, 0, 110, 110, 110, 220, 220, 220]
 box_x = [0, 110, 220, 0, 110, 220, 0, 110, 220]
-box_y = [350, 350, 350, 460, 460, 460, 570, 570, 570]
+box_y = [340, 340, 340, 455, 455, 455, 570, 570, 570]
 
 root = Tk()
 root.title('Tetravex 四邻')
-root.geometry("360x700")
+root.geometry("350x700")
 # 创建一个Canvas，设置其背景色为白色
-cv = Canvas(root,bg = 'white', width = 360, height = 700)
+cv = Canvas(root,bg = 'white', width = 350, height = 700)
 #cv.geometry("600x600")
 # 创建一个矩形，坐标为(10,10,110,110)
 
-r0 = cv.create_rectangle(10,350,350,690)
-cv.create_line(120, 350, 120, 690)
-cv.create_line(230, 350, 230, 690)
-cv.create_line(10, 470, 350, 470)
-cv.create_line(10, 575, 350, 575)
+r0 = cv.create_rectangle(10,345,340,690)
+cv.create_line(120, 345, 120, 690)
+cv.create_line(230, 345, 230, 690)
+cv.create_line(10, 460, 340, 460)
+cv.create_line(10, 575, 340, 575)
 
 
 #r1 = cv.create_rectangle(10,10,110,110)

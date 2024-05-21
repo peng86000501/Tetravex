@@ -263,13 +263,13 @@ def printsquare(squ):
 
 def printsquares():
     for i in range(0,2):
-        print("------------")
+        print("--------------")
         #print("get_index(i, 0)",get_index(i, 0))
         #print("get_index(i, 1)",get_index(i, 1))
-        print(" ",boxes[i*2+0].up, " | ", boxes[i*2+1].up)
-        print(boxes[i*2+0].left, "", boxes[i*2+0].right, "|", boxes[i*2+1].left, "",boxes[i*2+1].right)
-        print(" ",boxes[i*2+0].down," | ", boxes[i*2+1].down)
-    print("------------")
+        print(" ",boxes[i*2+0].up, "  |  ", boxes[i*2+1].up, "  |")
+        print(boxes[i*2+0].left, " ", boxes[i*2+0].right, "|", boxes[i*2+1].left, " ",boxes[i*2+1].right, "|")
+        print(" ",boxes[i*2+0].down,"  |  ", boxes[i*2+1].down, "  |")
+    print("--------------")
     return
 
 def judgewin():
